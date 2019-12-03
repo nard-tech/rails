@@ -31,12 +31,21 @@ module ActiveStorage
       if record.persisted? && !record.changed?
         record.update(name => blobs + attachables.flatten)
       else
-        record.public_send("#{name}=", (change&.attachables || blobs) + attachables.flatten)
+        self << attachables
       end
     end
 
-    # Returns true if any attachments has been made.
+    # Attaches one or more +attachables+ to the record.
     #
+    # The attachments are saved to the DB when the record is next saved.
+    # They are not saved to the database immediately.
+    #
+    #   document.images.assign_attachables(params[;images])
+    def <<(*attachables)
+      record.public_send("#{name}=", (change&.attachables || blobs) + attachables.flatten)
+    end
+
+    # Returns true if any attachments have been made.
     #   class Gallery < ActiveRecord::Base
     #     has_many_attached :photos
     #   end
