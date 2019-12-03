@@ -88,6 +88,9 @@ class String
   #   'active_record'.camelize(:lower)        # => "activeRecord"
   #   'active_record/errors'.camelize         # => "ActiveRecord::Errors"
   #   'active_record/errors'.camelize(:lower) # => "activeRecord::Errors"
+  #
+  # See ActiveSupport::Inflector.camelize
+  # +camelize+ is also aliased as +camelcase+.
   def camelize(first_letter = :upper)
     case first_letter
     when :upper
@@ -113,6 +116,8 @@ class String
   #   'man from the boondocks'.titleize                       # => "Man From The Boondocks"
   #   'x-men: the last stand'.titleize                        # => "X Men: The Last Stand"
   #   'string_ending_with_id'.titleize(keep_id_suffix: true)  # => "String Ending With Id"
+  #
+  # +titleize+ is also aliased as +titlecase+.
   def titleize(keep_id_suffix: false)
     ActiveSupport::Inflector.titleize(self, keep_id_suffix: keep_id_suffix)
   end
